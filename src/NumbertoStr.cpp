@@ -18,8 +18,35 @@ NOTES: Don't create new string.
 */
 
 #include <stdio.h>
-
-
+int reverse(float);
 void number_to_str(float number, char *str,int afterdecimal){
-	
+	int index=0;
+	if (number < 0)
+	{
+		str[index++] = '-';
+		number *= -1;
+	}
+	int revNumber=reverse(number);
+	while (revNumber > 0)
+	{
+		str[index++] = revNumber % 10 + '0';		
+		revNumber /= 10;
+	}
+	str[index++] = '.';
+	//re-using revNumber as a counter in loop
+	for (revNumber = 1; revNumber <= afterdecimal; revNumber++)
+	{
+		number *= 10;
+		str[index++] = (int)number % 10     + '0';
+	}
+}
+
+int reverse(float number)
+{
+	int result;
+	for (result = 0; number > 0.9; number /= 10)
+	{
+		result = result * 10 + (int)number % 10;
+	}
+	return result;
 }
